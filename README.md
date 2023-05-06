@@ -27,8 +27,7 @@ GERENCIANET_PIX_KEY=SUA_PIX_KEY
 
 ## Autor
 
-Este projeto foi desenvolvido por Alexandre Henrique  
 
+| [<img src="https://avatars.githubusercontent.com/u/64115785?v%3D4" width=115><br><sub>Alexandre Hinrique da rocha Araujo</sub>](https://github.com/alexandre-henrique-rp)  |
+| :---: | 
 
-
-![label](https://avatars.githubusercontent.com/u/64115785?v%3D4)
