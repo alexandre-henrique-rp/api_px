@@ -7,7 +7,6 @@ import { GetRequest, PutRequest } from '../../../../lib/request';
 
 export const CreatePg = async (req: Request, res: Response) => {
   const Id = req.params.id;
-  console.log("🚀 ~ file: create.ts:10 ~ CreatePg ~ Id:", Id)
   const urlGet = `/get/${Id}`;
   const dados = await GetRequest(urlGet);
 
