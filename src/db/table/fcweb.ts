@@ -75,6 +75,7 @@ export const Fcweb: any = DataBese.define(
     qrcodeLink : DataTypes.TEXT,
     CreatePixDate: DataTypes.DATE ,
     ConclusionPixDate: DataTypes.DATE,
+    Datepagmento: DataTypes.DATE,
     telPix:DataTypes.TEXT,
     emailPix:DataTypes.TEXT,
     pgto_efi:DataTypes.TEXT,

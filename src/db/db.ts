@@ -1,24 +1,26 @@
 import { Sequelize } from 'sequelize';
 
 const DataBese = new Sequelize(
-  process.env.DB_DATABASE,
-  process.env.DB_USER,
-  process.env.DB_PASSWORD,
+  'redebrasilrp',
+  'redebrasilrp',
+  'rbrp2017',
   {
-    host: process.env.DB_HOST,
-    dialect: "mysql",
+    host: 'mysql.redebrasilrp.com.br',
+    dialect: 'mysql',
+    dialectOptions: {
+      connectTimeout: 60000, // 60 segundos
+      SequelizeConnection: true,
+      
+    },
   },
 );
 
 DataBese.authenticate()
   .then(() => {
-    console.log(
-      '👍 👍 Conexação com o banco de dados foi estabelecida com sucesso! 👍 👍',
-    );
+    console.log('👍👍 Conexão com o banco de dados foi estabelecida com sucesso! 👍👍');
   })
   .catch((err) => {
-    console.error(
-      '👎👎 Erro: Conexação com o banco de dados não realizada:' + err + '👎👎',
-    );
+    console.error('👎👎 Erro: Conexão com o banco de dados não realizada:', err);
   });
+
 export default DataBese;

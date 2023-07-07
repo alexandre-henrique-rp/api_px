@@ -1,9 +1,11 @@
-import { Request, Response } from 'express';
+import { Request, Response, response } from 'express';
 import credentials from '../../../../certificate/credentials';
 import Gerencianet from 'gn-api-sdk-typescript';
+import { PutRequest } from '../../../../lib/request';
 
 export const PostPagamento = async (req: Request, res: Response) => {
   const data = req.body;
+  console.log("🚀 ~ file: index.ts:8 ~ PostPagamento ~ data:", data)
 
   var options = {
     client_id: credentials.client_id,
@@ -63,7 +65,35 @@ export const PostPagamento = async (req: Request, res: Response) => {
     .createOneStepCharge([], body)
     .then((resposta: any) => {
       console.log(resposta);
-      res.status(200).json(resposta.data);
+      let respostaUpdate;
+      (async()=> {
+        try {
+          const cron = new Date().toISOString()
+          const dataupdate = {
+            estatos_pgto: 'Pago',
+            pgto_efi: 'Pago Efi Credito',
+            formapgto: 'CT CREDITO',
+            venda: `${data.pagamentos}x`,
+            Datepagmento: cron
+          }
+          const url = `/save/${data.id}`;
+          const responsePut = await PutRequest(url,dataupdate)
+          const retorno = responsePut.data;
+          respostaUpdate = retorno;
+        } catch (error) {
+          console.log(error);
+          const erro ={
+            error: error.response.data
+          }
+          respostaUpdate = erro
+        }
+      })()
+      
+      const resp = {
+        api :resposta.data,
+        server: respostaUpdate
+      }
+      res.status(200).json(resp);
     })
     .catch((erro: any) => {
       console.log(erro);

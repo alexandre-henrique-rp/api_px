@@ -29,8 +29,8 @@ const getPaymentToken = async (pay_token: string, cardData: any): Promise<any> =
     return new Promise((resolve, reject) => {
       let options = {
         method: 'GET',
-        'url': 'https://sandbox.gerencianet.com.br/v1/pubkey?code=' + pay_token // Rota para homologação
-        // url: 'https://api.gerencianet.com.br/v1/pubkey?code=' + pay_token // Rota para produção
+        // 'url': 'https://sandbox.gerencianet.com.br/v1/pubkey?code=' + pay_token // Rota para homologação
+        url: 'https://api.gerencianet.com.br/v1/pubkey?code=' + pay_token // Rota para produção
       };
 
       return request(options, function (error: any, response: any, body: string | PromiseLike<string>) {
@@ -61,8 +61,8 @@ const getPaymentToken = async (pay_token: string, cardData: any): Promise<any> =
 
       let options = {
         method: 'POST',
-        'url': 'https://sandbox.gerencianet.com.br/v1/card', // Rota para homologação 
-        // url: 'https://tokenizer.gerencianet.com.br/card', // Rota para produção
+        // 'url': 'https://sandbox.gerencianet.com.br/v1/card', // Rota para homologação 
+        url: 'https://tokenizer.gerencianet.com.br/card', // Rota para produção
         headers: {
           'account-code': pay_token,
           'Content-Type': 'application/json'
@@ -84,7 +84,7 @@ const getPaymentToken = async (pay_token: string, cardData: any): Promise<any> =
 
   var saltTokenizer: any = await getSalt(pay_token);
   saltTokenizer = JSON.parse(saltTokenizer);
-  //console.log("saltTokenizer: " + saltTokenizer.data);
+  // console.log("saltTokenizer: " + saltTokenizer.data);
 
   //console.log("");
 
@@ -95,7 +95,7 @@ const getPaymentToken = async (pay_token: string, cardData: any): Promise<any> =
   //console.log("");
 
   const savedCardData = await saveCardData(pay_token, saltTokenizer.data, publicKey.data, cardData);
-  //console.log("cardData: " + savedCardData);
+  console.log("cardData: " + savedCardData);
 
   return savedCardData;
 };

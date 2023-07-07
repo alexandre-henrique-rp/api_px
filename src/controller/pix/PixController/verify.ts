@@ -25,7 +25,7 @@ export const VerifyPagamento = async (req: Request, res: Response) => {
         const data = {
           ConclusionPixDate: resposta.pix[0].horario,
           estatos_pgto: 'Pago',
-          pgto_efi: 'Pago Efi'
+          pgto_efi: 'Pago Efi Pix'
         };
         const url = `/save/${Id}`;
         const update = await PutRequest(url, data);
