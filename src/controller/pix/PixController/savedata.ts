@@ -11,7 +11,7 @@ export const DataSave = async (req: Request, res: Response) => {
   })
     .then((resp: any) => {
       return res.status(201).json({
-        message: 'Dados do pix salvos com sucesso!',
+        message: 'Dados do Pagamento salvos com sucesso!',
         data: resp.data
       });
     })
@@ -23,7 +23,3 @@ export const DataSave = async (req: Request, res: Response) => {
     });
 };
 
-// txid: txid,
-// qrcodeLink: response.data.pixCopiaECola,
-// CreatePixDate: response.data.calendario.criacao,
-// ConclusionPixDate: DataTypes.DATE,

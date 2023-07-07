@@ -1,4 +1,5 @@
 import path from 'path'
+
 export default {
 	// PRODUÇÃO = false
 	// HOMOLOGAÇÃO = true,
