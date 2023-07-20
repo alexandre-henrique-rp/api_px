@@ -80,6 +80,7 @@ export const Fcweb: any = DataBese.define(
     emailPix:DataTypes.TEXT,
     pgto_efi:DataTypes.TEXT,
     imgCode:DataTypes.TEXT,
+    msg_retorno:DataTypes.TEXT,
   },
   { freezeTableName: true },
 ); // função para conectar tebela ja criada
