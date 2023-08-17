@@ -7,11 +7,6 @@ const DataBese = new Sequelize(
   {
     host: 'mysql.redebrasilrp.com.br',
     dialect: 'mysql',
-    dialectOptions: {
-      connectTimeout: 60000, // 60 segundos
-      SequelizeConnection: true,
-      
-    },
   },
 );
 

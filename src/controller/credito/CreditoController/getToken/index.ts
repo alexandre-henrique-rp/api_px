@@ -17,6 +17,7 @@ export const TokemCredito = async (req: Request, res: Response) => {
     };
     const request = await getPaymentToken(pay_token, cardData);
     const resposta = JSON.parse(request)
+    console.log("🚀 ~ file: index.ts:20 ~ TokemCredito ~ resposta:", resposta)
 
     res.status(200).json(resposta);
   } catch (error: any) {

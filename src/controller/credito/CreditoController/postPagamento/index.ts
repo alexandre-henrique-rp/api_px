@@ -66,23 +66,62 @@ export const PostPagamento = async (req: Request, res: Response) => {
   gerencianet
     .createOneStepCharge([], body)
     .then(async (resposta: any) => {
-      const cron = new Date().toISOString();
-      const dataupdate = {
-        estatos_pgto: 'Pago',
-        pgto_efi: 'Pago Efi Credito',
-        formapgto: 'CT CREDITO',
-        venda: `${data.pagamentos}x`,
-        Datepagmento: cron,
-      };
-      const url = `/save/${data.id}`;
-      const responsePut = await PutRequest(url, dataupdate);
-      const retorno = responsePut;
+      console.log('🚀 ~ file: index.ts:69 ~ .then ~ resposta:', resposta);
 
-      const resp = {
-        api: resposta.data,
-        server: retorno,
-      };
-      res.status(200).json(resp);
+      if (resposta.data.status === 'unpaid') {
+        const cron = new Date().toISOString();
+        const dataupdate = {
+          msg_retorno: `pagamento Não, efetuado, ${resposta.data.refusal.reason}`,
+          Datepagmento: cron,
+        };
+        const url = `/save/${data.id}`;
+        const responsePut = await PutRequest(url, dataupdate);
+        const retorno = responsePut;
+
+        const resp = {
+          api: resposta.data,
+          server: retorno,
+        };
+        res.status(406).json(resp);
+
+      } else if (resposta.data.status === 'paid' || resposta.data.status === 'approved') {
+        const cron = new Date().toISOString();
+        const dataupdate = {
+          estatos_pgto: 'Pago',
+          pgto_efi: 'Pago Efi Credito',
+          formapgto: 'CT CREDITO',
+          venda: `${data.pagamentos}x`,
+          Datepagmento: cron,
+        };
+        const url = `/save/${data.id}`;
+        const responsePut = await PutRequest(url, dataupdate);
+        const retorno = responsePut;
+
+        const resp = {
+          api: resposta.data,
+          server: retorno,
+        };
+        res.status(200).json(resp);
+      } else {
+        const cron = new Date().toISOString();
+        const dataupdate = {
+          estatos_pgto: 'Verificar',
+          pgto_efi: 'Pago Efi Credito',
+          msg_retorno: `pagamento Não efetuado???, ${resposta.data.status}`,
+          formapgto: 'CT CREDITO',
+          venda: `${data.pagamentos}x`,
+          Datepagmento: cron,
+        };
+        const url = `/save/${data.id}`;
+        const responsePut = await PutRequest(url, dataupdate);
+        const retorno = responsePut;
+
+        const resp = {
+          api: resposta.data,
+          server: retorno,
+        };
+        res.status(202).json(resp);
+      }
     })
     .catch((erro: any) => {
       console.log(erro);
