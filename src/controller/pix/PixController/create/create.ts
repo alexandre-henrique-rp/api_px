@@ -33,7 +33,7 @@ export const CreatePg = async (req: Request, res: Response) => {
   gerencianet
     .pixCreateCharge(params, body)
     .then(async(resposta: any) => {
-        console.log("🚀 ~ file: create.ts:37 ~ .then ~ resposta:", resposta)
+        
         const data = {
           txid: resposta.txid,
           qrcodeLink: resposta.location,

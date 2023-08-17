@@ -82,8 +82,8 @@ export const Fcweb: any = DataBese.define(
     imgCode:DataTypes.TEXT,
   },
   { freezeTableName: true },
-); // função para conectar tebela ja criada
+); // função para conectar tabela ja criada
 
-//criar ou sicronizar a tabela
+//criar ou sincronizar a tabela
 // Cliente.sync();
 
