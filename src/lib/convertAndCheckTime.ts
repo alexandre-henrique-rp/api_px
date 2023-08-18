@@ -1,13 +1,13 @@
 function convertAndCheckTime(apiDateTime: string): { formattedDateTime: string; hasPassedThreeHours: boolean } {
-  const parsedDateTime = new Date(apiDateTime);
+  const parsedApiDateTime = new Date(apiDateTime);
 
-  // Ajustando para o fuso horário do Brasil
-  parsedDateTime.setHours(parsedDateTime.getHours() - 3); // Convertendo de UTC para BRT (GMT-3)
-
+  // Obtendo o tempo atual
   const currentTime = new Date();
-  const threeHoursAgo = new Date(currentTime);
-  threeHoursAgo.setHours(threeHoursAgo.getHours() - 3); // Subtraindo 3 horas da hora atual
 
+  // Verificando se passaram mais de três horas desde a apiDateTime
+  const hasPassedThreeHours = currentTime.getTime() - parsedApiDateTime.getTime() > 3 * 60 * 60 * 1000;
+
+  // Formatador de data e hora
   const formatter = new Intl.DateTimeFormat("pt-BR", {
     year: "numeric",
     month: "2-digit",
@@ -17,10 +17,10 @@ function convertAndCheckTime(apiDateTime: string): { formattedDateTime: string; 
     second: "2-digit",
   });
 
-  const formattedDateTime = formatter.format(parsedDateTime);
-  const hasPassedThreeHours = parsedDateTime < threeHoursAgo;
+  // Formatação da data e hora da API para o formato local
+  const formattedDateTime = formatter.format(parsedApiDateTime);
 
   return { formattedDateTime, hasPassedThreeHours };
 }
 
-export default convertAndCheckTime
+export default convertAndCheckTime;

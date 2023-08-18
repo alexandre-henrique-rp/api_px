@@ -22,13 +22,15 @@ export const PgConcluido = async (req: Request, res: Response) => {
     const Ativo = await ATIVO(lista_efi)
     const listaAtivo = await Promise.all(Ativo)
     
+    const resposeLista: any = {
+      concluindo: listaConcluida,
+      ativo: listaAtivo
+    }
 
-    console.log("🚀 ~ file: index.ts:19 ~ PgConcluido ~ Concluido:", listaAtivo)
-    
-
+    const retorno = await Promise.all(resposeLista)
    
-
-    res.json(lista_efi);
+    res.json(retorno);
+    // res.json(lista_efi);
   } catch (error) {
     res.status(400).send(error);
   }

@@ -13,6 +13,12 @@ export const CONCLUIDO = async (lista: any) =>
         const urlVerifique = `/get/ativo/${i.txid}`;
         const Verifique = await GetRequest(urlVerifique);
 
+        const AtualData = new Date()
+        .toLocaleString()
+        .replace(/\//g, '-')
+        .replace(/, /g, '.');
+      const novoHistorico = `${AtualData}-CLIENTE EFETUOU PAGAMENTO NA DATA ${i.data_pagamento}\n`;
+
         if (clientePg) {
           if (Verifique) {
             const dados = {
@@ -24,15 +30,20 @@ export const CONCLUIDO = async (lista: any) =>
             await PutRequest(urlLista, dados);
 
             const data = {
+              observacao: `${clientePg.observacao}\n ${novoHistorico}`,
+              historico: `${clientePg.historico}${novoHistorico}`,
               ConclusionPixDate: i.data_pagamento,
               estatos_pgto: 'Pago',
               pgto_efi: 'Pago Efi Pix',
             };
+            console.log("🚀 ~ file: concluido.ts:39 ~ .map ~ data:", data)
             const url = `/save/${clientePg.id}`;
             const update = await PutRequest(url, data);
             return update.message;
           } else {
             const data = {
+              observacao: `${clientePg.observacao}\n ${novoHistorico}`,
+              historico: `${clientePg.historico}${novoHistorico}`,
               ConclusionPixDate: i.data_pagamento,
               estatos_pgto: 'Pago',
               pgto_efi: 'Pago Efi Pix',
